@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import * as actions from '../redux/actions';
+import { addContact } from '../redux/operations';
+import contactSelectors from '../redux/contacts-selectors';
 
 class ContactForm extends React.Component {
   state = {
@@ -67,11 +68,11 @@ class ContactForm extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  items: state.contacts.items,
+  items: contactSelectors.getItems(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: item => dispatch(actions.addContact(item)),
+  onSubmit: item => dispatch(addContact(item)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
